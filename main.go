@@ -31,7 +31,8 @@ func main() {
 	// 转发
 	api.GET("/add/:a/:b", func(c *gin.Context) {
 
-		target := "http://192.168.64.2:30001"
+		//target := "http://192.168.64.2:30001"
+		target := "localhost:8888"
 		remote, err := url.Parse(target)
 		if err != nil {
 			c.String(http.StatusOK, "Error is :%s",err.Error())
