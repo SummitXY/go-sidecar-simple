@@ -20,6 +20,7 @@ spec:
           imagePullPolicy:  Always
           ports:
             - containerPort: 8888
+
         - name: go-sidecar-simple
           image: qxybest/go-sidecar-simple:latest
           imagePullPolicy:  Always # IfNotPresent
