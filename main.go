@@ -17,14 +17,14 @@ func main() {
 	r := gin.Default()
 
 	r.GET("/hello", func(c *gin.Context) {
-		c.String(200, "Hello, World, sidecar !")
+		c.String(200, "Hello, World, sidecar!")
 	})
 
 	api := r.Group("/api")
 
 	api.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "pong",
+			"message": "pong sidecar",
 		})
 	})
 
@@ -32,7 +32,7 @@ func main() {
 	api.GET("/add/:a/:b", func(c *gin.Context) {
 
 		//target := "http://192.168.64.2:30001"
-		target := "localhost:8888"
+		target := "http://localhost:8888"
 		remote, err := url.Parse(target)
 		if err != nil {
 			c.String(http.StatusOK, "Error is :%s",err.Error())

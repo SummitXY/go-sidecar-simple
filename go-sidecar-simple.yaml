@@ -1,38 +1,43 @@
 apiVersion: apps/v1  # API版本
 kind: Deployment  # API对象类型
 metadata:
-  name: go-sidecar-simple
+  name: go-sidecar-server-simple
   labels:
-    app: go-sidecar-simple
+    app: go-sidecar-server-simple
 spec:
   selector:
     matchLabels:
-      app: go-sidecar-simple
+      app: go-sidecar-server-simple
   replicas: 3  # Pod 副本数量
   template:  # Pod 模板
     metadata:
       labels:
-        app: go-sidecar-simple
+        app: go-sidecar-server-simple
     spec:
       containers:
-        - name: go-sidecar-simple
+        - name: go-server-simple
           image: qxybest/go-server-simple:latest
-          imagePullPolicy:  Always # IfNotPresent
+          imagePullPolicy:  Always
           ports:
             - containerPort: 8888
+        - name: go-sidecar-simple
+          image: qxybest/go-sidecar-simple:latest
+          imagePullPolicy:  Always # IfNotPresent
+          ports:
+            - containerPort: 9999
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: go-sidecar-simple-service
+  name: go-sidecar-server-simple-service
   labels:
-    app: go-sidecar-simple
+    app: go-sidecar-server-simple
 spec:
   selector:
-    app: go-sidecar-simple
+    app: go-sidecar-server-simple
   type: LoadBalancer
   ports:
     - protocol: TCP
       port: 8889
-      targetPort: 8888
+      targetPort: 9999
       nodePort: 30002
